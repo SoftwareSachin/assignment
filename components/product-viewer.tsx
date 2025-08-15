@@ -1,10 +1,29 @@
 "use client"
 
 import { Suspense } from "react"
-import { Canvas } from "@react-three/fiber"
-import { OrbitControls, useGLTF, Environment, Center } from "@react-three/drei"
+import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
+
+const Canvas = dynamic(() => import("@react-three/fiber").then((mod) => ({ default: mod.Canvas })), {
+  ssr: false,
+})
+
+const OrbitControls = dynamic(() => import("@react-three/drei").then((mod) => ({ default: mod.OrbitControls })), {
+  ssr: false,
+})
+
+const useGLTF = dynamic(() => import("@react-three/drei").then((mod) => ({ default: mod.useGLTF })), {
+  ssr: false,
+})
+
+const Environment = dynamic(() => import("@react-three/drei").then((mod) => ({ default: mod.Environment })), {
+  ssr: false,
+})
+
+const Center = dynamic(() => import("@react-three/drei").then((mod) => ({ default: mod.Center })), {
+  ssr: false,
+})
 
 interface Product {
   id: number
@@ -22,39 +41,62 @@ interface ProductViewerProps {
 }
 
 function Model({ url }: { url: string }) {
-  const { scene } = useGLTF(url) // Moved useGLTF outside of try-catch
+  const { useGLTF: gltfHook } = require("@react-three/drei")
+  const { scene } = gltfHook(url)
+
   return (
-    <Center>
+    <group>
       <primitive object={scene} />
-    </Center>
+    </group>
   )
 }
 
 function ModelFallback({ productName }: { productName: string }) {
   return (
-    <Center>
-      <group>
-        <mesh>
-          <boxGeometry args={[2, 1.5, 2]} />
-          <meshStandardMaterial color="#8b5cf6" />
-        </mesh>
-        <mesh position={[0, 1.2, 0]}>
-          <sphereGeometry args={[0.3]} />
-          <meshStandardMaterial color="#06b6d4" />
-        </mesh>
-        <mesh position={[0, -0.8, 0]}>
-          <cylinderGeometry args={[0.8, 0.8, 0.2]} />
-          <meshStandardMaterial color="#64748b" />
-        </mesh>
-      </group>
-    </Center>
+    <group>
+      <mesh>
+        <boxGeometry args={[2, 1.5, 2]} />
+        <meshStandardMaterial color="#8b5cf6" />
+      </mesh>
+      <mesh position={[0, 1.2, 0]}>
+        <sphereGeometry args={[0.3]} />
+        <meshStandardMaterial color="#06b6d4" />
+      </mesh>
+      <mesh position={[0, -0.8, 0]}>
+        <cylinderGeometry args={[0.8, 0.8, 0.2]} />
+        <meshStandardMaterial color="#64748b" />
+      </mesh>
+    </group>
   )
 }
 
+const ThreeDScene = dynamic(
+  () =>
+    Promise.resolve(function ThreeDScene({ product }: { product: Product }) {
+      return (
+        <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
+          <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+            <ambientLight intensity={0.5} />
+            <directionalLight position={[10, 10, 5]} intensity={1} />
+            <Environment preset="studio" />
+            <Suspense fallback={<ModelFallback productName={product.name} />}>
+              <Model url={product.model_url} />
+            </Suspense>
+            <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} />
+          </Canvas>
+        </div>
+      )
+    }),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center">Loading 3D model...</div>
+    ),
+  },
+)
+
 export default function ProductViewer({ product, onBack }: ProductViewerProps) {
   console.log(`[v0] Loading 3D viewer for: ${product.name}`)
-
-  const modelUrl = product.model_url
 
   return (
     <div className="min-h-screen bg-background">
@@ -66,17 +108,7 @@ export default function ProductViewer({ product, onBack }: ProductViewerProps) {
           </Button>
           <div className="flex flex-col md:flex-row gap-8">
             <div className="flex-1">
-              <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
-                <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-                  <ambientLight intensity={0.5} />
-                  <directionalLight position={[10, 10, 5]} intensity={1} />
-                  <Environment preset="studio" />
-                  <Suspense fallback={<ModelFallback productName={product.name} />}>
-                    <Model url={modelUrl} />
-                  </Suspense>
-                  <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} />
-                </Canvas>
-              </div>
+              <ThreeDScene product={product} />
               <div className="mt-4 text-sm text-muted-foreground">
                 <p>• Drag to rotate • Scroll to zoom • Right-click + drag to pan</p>
               </div>
