@@ -43,6 +43,250 @@ const Model = dynamic(
 )
 
 function CustomProductGeometry({ productName }: { productName: string }) {
+  if (productName.toLowerCase().includes("sofa") || productName.toLowerCase().includes("scandinavian")) {
+    return (
+      <group>
+        {/* Sofa base */}
+        <mesh position={[0, 0.2, 0]}>
+          <boxGeometry args={[3, 0.4, 1.5]} />
+          <meshStandardMaterial color="#E6E6FA" />
+        </mesh>
+        {/* Backrest */}
+        <mesh position={[0, 0.8, -0.6]}>
+          <boxGeometry args={[3, 0.8, 0.3]} />
+          <meshStandardMaterial color="#E6E6FA" />
+        </mesh>
+        {/* Armrests */}
+        <mesh position={[-1.3, 0.6, 0]}>
+          <boxGeometry args={[0.4, 0.6, 1.5]} />
+          <meshStandardMaterial color="#E6E6FA" />
+        </mesh>
+        <mesh position={[1.3, 0.6, 0]}>
+          <boxGeometry args={[0.4, 0.6, 1.5]} />
+          <meshStandardMaterial color="#E6E6FA" />
+        </mesh>
+      </group>
+    )
+  }
+
+  if (productName.toLowerCase().includes("chandelier")) {
+    return (
+      <group>
+        {/* Central body */}
+        <mesh position={[0, 0, 0]}>
+          <sphereGeometry args={[0.3, 16, 16]} />
+          <meshStandardMaterial color="#FFD700" />
+        </mesh>
+        {/* Arms */}
+        {Array.from({ length: 6 }).map((_, i) => {
+          const angle = (i / 6) * Math.PI * 2
+          const x = Math.cos(angle) * 0.8
+          const z = Math.sin(angle) * 0.8
+          return (
+            <group key={i}>
+              <mesh position={[x, 0, z]}>
+                <cylinderGeometry args={[0.02, 0.02, 0.6]} />
+                <meshStandardMaterial color="#C0C0C0" />
+              </mesh>
+              <mesh position={[x, -0.4, z]}>
+                <sphereGeometry args={[0.1, 8, 8]} />
+                <meshStandardMaterial color="#FFFACD" emissive="#FFFACD" emissiveIntensity={0.3} />
+              </mesh>
+            </group>
+          )
+        })}
+      </group>
+    )
+  }
+
+  if (productName.toLowerCase().includes("countertop") || productName.toLowerCase().includes("marble")) {
+    return (
+      <group>
+        <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[4, 0.15, 2]} />
+          <meshStandardMaterial color="#F8F8FF" />
+        </mesh>
+        {/* Marble veining */}
+        <mesh position={[0, 0.076, 0]}>
+          <boxGeometry args={[3.8, 0.01, 1.8]} />
+          <meshStandardMaterial color="#E0E0E0" />
+        </mesh>
+      </group>
+    )
+  }
+
+  if (productName.toLowerCase().includes("flooring") || productName.toLowerCase().includes("hardwood")) {
+    return (
+      <group>
+        {/* Wood planks */}
+        {Array.from({ length: 5 }).map((_, i) => (
+          <mesh key={i} position={[0, 0, (i - 2) * 0.4]}>
+            <boxGeometry args={[3, 0.05, 0.35]} />
+            <meshStandardMaterial color="#DEB887" />
+          </mesh>
+        ))}
+      </group>
+    )
+  }
+
+  if (productName.toLowerCase().includes("vanity") || productName.toLowerCase().includes("granite")) {
+    return (
+      <group>
+        {/* Vanity base */}
+        <mesh position={[0, -0.3, 0]}>
+          <boxGeometry args={[2.5, 1.2, 1.5]} />
+          <meshStandardMaterial color="#8B4513" />
+        </mesh>
+        {/* Granite top */}
+        <mesh position={[0, 0.3, 0]}>
+          <boxGeometry args={[2.6, 0.1, 1.6]} />
+          <meshStandardMaterial color="#2F4F4F" />
+        </mesh>
+        {/* Sink cutout */}
+        <mesh position={[0, 0.35, 0.2]}>
+          <cylinderGeometry args={[0.3, 0.3, 0.05]} />
+          <meshStandardMaterial color="#FFFFFF" />
+        </mesh>
+      </group>
+    )
+  }
+
+  if (productName.toLowerCase().includes("desk") || productName.toLowerCase().includes("executive")) {
+    return (
+      <group>
+        {/* Desktop */}
+        <mesh position={[0, 0.4, 0]}>
+          <boxGeometry args={[3.5, 0.1, 1.8]} />
+          <meshStandardMaterial color="#8B4513" />
+        </mesh>
+        {/* Pedestals */}
+        <mesh position={[-1.4, -0.2, 0]}>
+          <boxGeometry args={[0.6, 1.2, 1.6]} />
+          <meshStandardMaterial color="#654321" />
+        </mesh>
+        <mesh position={[1.4, -0.2, 0]}>
+          <boxGeometry args={[0.6, 1.2, 1.6]} />
+          <meshStandardMaterial color="#654321" />
+        </mesh>
+      </group>
+    )
+  }
+
+  if (productName.toLowerCase().includes("track") && productName.toLowerCase().includes("lighting")) {
+    return (
+      <group>
+        {/* Track */}
+        <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[4, 0.1, 0.1]} />
+          <meshStandardMaterial color="#C0C0C0" />
+        </mesh>
+        {/* Light fixtures */}
+        {[-1.5, -0.5, 0.5, 1.5].map((x, i) => (
+          <group key={i}>
+            <mesh position={[x, -0.2, 0]}>
+              <cylinderGeometry args={[0.08, 0.08, 0.3]} />
+              <meshStandardMaterial color="#2F2F2F" />
+            </mesh>
+            <mesh position={[x, -0.4, 0]}>
+              <coneGeometry args={[0.12, 0.2, 8]} />
+              <meshStandardMaterial color="#FFFACD" emissive="#FFFACD" emissiveIntensity={0.2} />
+            </mesh>
+          </group>
+        ))}
+      </group>
+    )
+  }
+
+  if (productName.toLowerCase().includes("subway") && productName.toLowerCase().includes("tile")) {
+    return (
+      <group>
+        {/* Subway tile pattern */}
+        {Array.from({ length: 4 }).map((_, row) =>
+          Array.from({ length: 6 }).map((_, col) => {
+            const offset = row % 2 === 0 ? 0 : 0.15
+            return (
+              <mesh key={`${row}-${col}`} position={[(col - 2.5) * 0.3 + offset, (row - 1.5) * 0.15, 0]}>
+                <boxGeometry args={[0.28, 0.13, 0.02]} />
+                <meshStandardMaterial color="#FFFFFF" />
+              </mesh>
+            )
+          }),
+        )}
+      </group>
+    )
+  }
+
+  if (productName.toLowerCase().includes("cabinet") || productName.toLowerCase().includes("kitchen")) {
+    return (
+      <group>
+        {/* Cabinet body */}
+        <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[2, 2, 1.5]} />
+          <meshStandardMaterial color="#8B4513" />
+        </mesh>
+        {/* Doors */}
+        <mesh position={[-0.25, 0, 0.76]}>
+          <boxGeometry args={[0.9, 1.8, 0.05]} />
+          <meshStandardMaterial color="#A0522D" />
+        </mesh>
+        <mesh position={[0.25, 0, 0.76]}>
+          <boxGeometry args={[0.9, 1.8, 0.05]} />
+          <meshStandardMaterial color="#A0522D" />
+        </mesh>
+        {/* Handles */}
+        <mesh position={[0.15, 0.3, 0.8]}>
+          <cylinderGeometry args={[0.02, 0.02, 0.15]} />
+          <meshStandardMaterial color="#C0C0C0" />
+        </mesh>
+        <mesh position={[-0.15, 0.3, 0.8]}>
+          <cylinderGeometry args={[0.02, 0.02, 0.15]} />
+          <meshStandardMaterial color="#C0C0C0" />
+        </mesh>
+      </group>
+    )
+  }
+
+  if (productName.toLowerCase().includes("pendant") && productName.toLowerCase().includes("light")) {
+    return (
+      <group>
+        {/* Cord */}
+        <mesh position={[0, 1, 0]}>
+          <cylinderGeometry args={[0.01, 0.01, 2]} />
+          <meshStandardMaterial color="#2F2F2F" />
+        </mesh>
+        {/* Shade */}
+        <mesh position={[0, -0.2, 0]}>
+          <coneGeometry args={[0.4, 0.6, 8]} />
+          <meshStandardMaterial color="#F5F5DC" />
+        </mesh>
+        {/* Bulb */}
+        <mesh position={[0, -0.1, 0]}>
+          <sphereGeometry args={[0.08, 8, 8]} />
+          <meshStandardMaterial color="#FFFACD" emissive="#FFFACD" emissiveIntensity={0.3} />
+        </mesh>
+      </group>
+    )
+  }
+
+  if (productName.toLowerCase().includes("backsplash")) {
+    return (
+      <group>
+        {/* Backsplash surface */}
+        <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[3, 1.5, 0.05]} />
+          <meshStandardMaterial color="#F0F8FF" />
+        </mesh>
+        {/* Decorative pattern */}
+        {Array.from({ length: 3 }).map((_, i) => (
+          <mesh key={i} position={[(i - 1) * 0.8, 0, 0.026]}>
+            <boxGeometry args={[0.6, 1.3, 0.01]} />
+            <meshStandardMaterial color="#E6E6FA" />
+          </mesh>
+        ))}
+      </group>
+    )
+  }
+
   if (productName.toLowerCase().includes("coffee table")) {
     return (
       <group>
