@@ -95,8 +95,6 @@ const ThreeDScene = dynamic(
 )
 
 export default function ProductViewer({ product, onBack }: ProductViewerProps) {
-  console.log(`[v0] Loading 3D viewer for: ${product.name}`)
-
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
@@ -136,4 +134,3 @@ export default function ProductViewer({ product, onBack }: ProductViewerProps) {
     </div>
   )
 }
-</merged_code>
