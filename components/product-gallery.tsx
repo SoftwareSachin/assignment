@@ -153,4 +153,3 @@ export default function ProductGallery() {
     </div>
   )
 }
-</merged_code>
