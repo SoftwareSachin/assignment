@@ -4,79 +4,83 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated color palette for professional SaaS home decor platform */
-  --background: oklch(0.98 0.005 240); /* Light gray background #f9fafb */
-  --foreground: oklch(0.35 0.01 240); /* Dark gray text #4b5563 */
-  --card: oklch(1 0 0); /* Pure white cards */
-  --card-foreground: oklch(0.35 0.01 240); /* Dark gray text on cards */
-  --popover: oklch(1 0 0); /* White popovers */
-  --popover-foreground: oklch(0.35 0.01 240); /* Dark gray text in popovers */
-  --primary: oklch(0.55 0.15 200); /* Cyan primary #0891b2 */
-  --primary-foreground: oklch(1 0 0); /* White text on primary */
-  --secondary: oklch(0.25 0.01 240); /* Darker gray secondary #374151 */
-  --secondary-foreground: oklch(1 0 0); /* White text on secondary */
-  --muted: oklch(0.98 0.005 240); /* Light gray muted #f9fafb */
-  --muted-foreground: oklch(0.35 0.01 240); /* Dark gray muted text */
-  --accent: oklch(0.65 0.15 60); /* Amber accent #d97706 */
-  --accent-foreground: oklch(1 0 0); /* White text on accent */
-  --destructive: oklch(0.55 0.22 25); /* Red destructive #dc2626 */
-  --destructive-foreground: oklch(1 0 0); /* White text on destructive */
-  --border: oklch(0.92 0.005 240); /* Light gray borders #e5e7eb */
-  --input: oklch(1 0 0); /* White input fields */
-  --ring: oklch(0.55 0.15 200); /* Cyan focus rings */
-  --chart-1: oklch(0.98 0.005 240);
-  --chart-2: oklch(0.55 0.15 200);
-  --chart-3: oklch(0.65 0.15 60);
-  --chart-4: oklch(0.35 0.01 240);
-  --chart-5: oklch(0.55 0.22 25);
+  /* Updated color palette for professional SaaS design with indigo primary and refined neutrals */
+  --background: #ffffff; /* Clean white background */
+  --foreground: #374151; /* Professional gray-700 text */
+  --card: #f8fafc; /* Subtle off-white for cards */
+  --card-foreground: #1f2937; /* Dark gray-800 text on cards */
+  --popover: #ffffff; /* White popovers */
+  --popover-foreground: #374151; /* Gray-700 text in popovers */
+  --primary: #6366f1; /* Indigo-500 primary color */
+  --primary-foreground: #ffffff; /* White text on primary */
+  --secondary: #4b5563; /* Gray-600 secondary */
+  --secondary-foreground: #f8fafc; /* Light text on secondary */
+  --muted: #f8fafc; /* Subtle off-white muted */
+  --muted-foreground: #4b5563; /* Gray-600 muted text */
+  --accent: #6366f1; /* Indigo-500 accent */
+  --accent-foreground: #ffffff; /* White text on accent */
+  --destructive: #ea580c; /* Orange-600 for warnings */
+  --destructive-foreground: #ffffff; /* White text on destructive */
+  --border: #e5e7eb; /* Gray-200 borders */
+  --input: #f8fafc; /* Light input backgrounds */
+  --ring: rgba(99, 102, 241, 0.5); /* Indigo focus rings with transparency */
+  --chart-1: #6366f1;
+  --chart-2: #f97316;
+  --chart-3: #ea580c;
+  --chart-4: #a16207;
+  --chart-5: #4b5563;
   --radius: 0.5rem; /* Modern rounded corners */
-  --sidebar: oklch(1 0 0); /* White sidebar background */
-  --sidebar-foreground: oklch(0.35 0.01 240); /* Dark gray sidebar text */
-  --sidebar-primary: oklch(0.98 0.005 240); /* Light gray primary sections */
-  --sidebar-primary-foreground: oklch(0.35 0.01 240); /* Dark gray primary text */
-  --sidebar-accent: oklch(0.55 0.15 200); /* Cyan sidebar accents */
-  --sidebar-accent-foreground: oklch(1 0 0); /* White text on sidebar accents */
-  --sidebar-border: oklch(0.92 0.005 240); /* Light gray sidebar borders */
-  --sidebar-ring: oklch(0.55 0.15 200); /* Cyan sidebar focus */
+  --sidebar: #f8fafc; /* Light sidebar background */
+  --sidebar-foreground: #374151; /* Gray-700 sidebar text */
+  --sidebar-primary: #6366f1; /* Indigo primary sections */
+  --sidebar-primary-foreground: #ffffff; /* White text on primary */
+  --sidebar-accent: #ea580c; /* Orange accent sections */
+  --sidebar-accent-foreground: #ffffff; /* White text on accents */
+  --sidebar-border: #e5e7eb; /* Gray-200 sidebar borders */
+  --sidebar-ring: rgba(99, 102, 241, 0.5); /* Indigo sidebar focus */
 }
 
 .dark {
-  /* Updated dark mode colors to maintain professional appearance */
-  --background: oklch(0.08 0.005 240); /* Dark background */
-  --foreground: oklch(0.95 0.005 240); /* Light text */
-  --card: oklch(0.12 0.005 240); /* Dark cards */
-  --card-foreground: oklch(0.95 0.005 240); /* Light text on cards */
-  --popover: oklch(0.12 0.005 240); /* Dark popovers */
-  --popover-foreground: oklch(0.95 0.005 240); /* Light text in popovers */
-  --primary: oklch(0.65 0.15 200); /* Brighter cyan for dark mode */
-  --primary-foreground: oklch(0.08 0.005 240); /* Dark text on primary */
-  --secondary: oklch(0.18 0.005 240); /* Lighter secondary for dark mode */
-  --secondary-foreground: oklch(0.95 0.005 240); /* Light text on secondary */
-  --muted: oklch(0.18 0.005 240); /* Dark muted background */
-  --muted-foreground: oklch(0.65 0.005 240); /* Medium gray muted text */
-  --accent: oklch(0.75 0.15 60); /* Brighter amber for dark mode */
-  --accent-foreground: oklch(0.08 0.005 240); /* Dark text on accent */
-  --destructive: oklch(0.65 0.22 25); /* Brighter red for dark mode */
-  --destructive-foreground: oklch(0.95 0.005 240); /* Light text on destructive */
-  --border: oklch(0.18 0.005 240); /* Dark borders */
-  --input: oklch(0.18 0.005 240); /* Dark input fields */
-  --ring: oklch(0.65 0.15 200); /* Brighter cyan focus rings */
-  --chart-1: oklch(0.55 0.15 280);
-  --chart-2: oklch(0.65 0.15 160);
-  --chart-3: oklch(0.75 0.15 60);
-  --chart-4: oklch(0.65 0.2 300);
-  --chart-5: oklch(0.65 0.22 25);
-  --sidebar: oklch(0.12 0.005 240); /* Dark sidebar */
-  --sidebar-foreground: oklch(0.95 0.005 240); /* Light sidebar text */
-  --sidebar-primary: oklch(0.65 0.15 200); /* Cyan primary sections */
-  --sidebar-primary-foreground: oklch(0.08 0.005 240); /* Dark text on primary */
-  --sidebar-accent: oklch(0.18 0.005 240); /* Dark accent sections */
-  --sidebar-accent-foreground: oklch(0.95 0.005 240); /* Light text on accents */
-  --sidebar-border: oklch(0.18 0.005 240); /* Dark sidebar borders */
-  --sidebar-ring: oklch(0.65 0.15 200); /* Cyan sidebar focus */
+  /* Enhanced dark mode colors for better contrast and professional appearance */
+  --background: #0f172a; /* Slate-900 dark background */
+  --foreground: #f1f5f9; /* Slate-100 light text */
+  --card: #1e293b; /* Slate-800 dark cards */
+  --card-foreground: #f1f5f9; /* Slate-100 text on cards */
+  --popover: #1e293b; /* Slate-800 dark popovers */
+  --popover-foreground: #f1f5f9; /* Slate-100 text in popovers */
+  --primary: #818cf8; /* Indigo-400 brighter for dark mode */
+  --primary-foreground: #0f172a; /* Dark text on primary */
+  --secondary: #475569; /* Slate-600 secondary */
+  --secondary-foreground: #f1f5f9; /* Light text on secondary */
+  --muted: #334155; /* Slate-700 muted background */
+  --muted-foreground: #94a3b8; /* Slate-400 muted text */
+  --accent: #818cf8; /* Indigo-400 accent */
+  --accent-foreground: #0f172a; /* Dark text on accent */
+  --destructive: #fb7185; /* Rose-400 for dark mode warnings */
+  --destructive-foreground: #f1f5f9; /* Light text on destructive */
+  --border: #334155; /* Slate-700 borders */
+  --input: #334155; /* Slate-700 input backgrounds */
+  --ring: rgba(129, 140, 248, 0.5); /* Indigo-400 focus rings */
+  --chart-1: #818cf8;
+  --chart-2: #fb923c;
+  --chart-3: #fb7185;
+  --chart-4: #fbbf24;
+  --chart-5: #94a3b8;
+  --sidebar: #1e293b; /* Slate-800 dark sidebar */
+  --sidebar-foreground: #f1f5f9; /* Light sidebar text */
+  --sidebar-primary: #818cf8; /* Indigo-400 primary sections */
+  --sidebar-primary-foreground: #0f172a; /* Dark text on primary */
+  --sidebar-accent: #334155; /* Slate-700 accent sections */
+  --sidebar-accent-foreground: #f1f5f9; /* Light text on accents */
+  --sidebar-border: #334155; /* Slate-700 sidebar borders */
+  --sidebar-ring: rgba(129, 140, 248, 0.5); /* Indigo-400 sidebar focus */
 }
 
 @theme inline {
+  /* Added Space Grotesk font family for headings */
+  --font-sans: var(--font-dm-sans);
+  --font-serif: var(--font-space-grotesk);
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import { Suspense } from "react"
 import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
@@ -34,39 +36,127 @@ interface ProductViewerProps {
 
 const Model = dynamic(
   () =>
-    import("@react-three/drei").then((mod) => {
-      const { useGLTF } = mod
-      return {
-        default: function Model({ url }: { url: string }) {
-          const { scene } = useGLTF(url)
-          return (
-            <group>
-              <primitive object={scene} />
-            </group>
-          )
-        },
-      }
+    Promise.resolve(function Model({ productName }: { productName: string }) {
+      return <CustomProductGeometry productName={productName} />
     }),
   { ssr: false },
 )
 
-function ModelFallback({ productName }: { productName: string }) {
+function CustomProductGeometry({ productName }: { productName: string }) {
+  if (productName.toLowerCase().includes("coffee table")) {
+    return (
+      <group>
+        {/* Table top */}
+        <mesh position={[0, 0.5, 0]}>
+          <boxGeometry args={[3, 0.1, 1.5]} />
+          <meshStandardMaterial color="#8B4513" />
+        </mesh>
+        {/* Table legs */}
+        <mesh position={[-1.3, -0.2, -0.6]}>
+          <cylinderGeometry args={[0.05, 0.05, 1.4]} />
+          <meshStandardMaterial color="#654321" />
+        </mesh>
+        <mesh position={[1.3, -0.2, -0.6]}>
+          <cylinderGeometry args={[0.05, 0.05, 1.4]} />
+          <meshStandardMaterial color="#654321" />
+        </mesh>
+        <mesh position={[-1.3, -0.2, 0.6]}>
+          <cylinderGeometry args={[0.05, 0.05, 1.4]} />
+          <meshStandardMaterial color="#654321" />
+        </mesh>
+        <mesh position={[1.3, -0.2, 0.6]}>
+          <cylinderGeometry args={[0.05, 0.05, 1.4]} />
+          <meshStandardMaterial color="#654321" />
+        </mesh>
+      </group>
+    )
+  }
+
+  if (productName.toLowerCase().includes("ceramic") || productName.toLowerCase().includes("tile")) {
+    return (
+      <group>
+        <mesh>
+          <boxGeometry args={[2, 0.1, 2]} />
+          <meshStandardMaterial color="#F5F5DC" />
+        </mesh>
+        {/* Tile pattern */}
+        <mesh position={[0, 0.051, 0]}>
+          <boxGeometry args={[1.8, 0.01, 1.8]} />
+          <meshStandardMaterial color="#E6E6FA" />
+        </mesh>
+      </group>
+    )
+  }
+
+  if (productName.toLowerCase().includes("lamp")) {
+    return (
+      <group>
+        {/* Base */}
+        <mesh position={[0, -0.8, 0]}>
+          <cylinderGeometry args={[0.3, 0.4, 0.2]} />
+          <meshStandardMaterial color="#2F4F4F" />
+        </mesh>
+        {/* Stem */}
+        <mesh position={[0, 0, 0]}>
+          <cylinderGeometry args={[0.02, 0.02, 1.6]} />
+          <meshStandardMaterial color="#696969" />
+        </mesh>
+        {/* Lampshade */}
+        <mesh position={[0, 1, 0]}>
+          <coneGeometry args={[0.6, 0.8, 8]} />
+          <meshStandardMaterial color="#F0F8FF" />
+        </mesh>
+      </group>
+    )
+  }
+
+  if (productName.toLowerCase().includes("chair")) {
+    return (
+      <group>
+        {/* Seat */}
+        <mesh position={[0, 0.4, 0]}>
+          <boxGeometry args={[1.2, 0.1, 1.2]} />
+          <meshStandardMaterial color="#8B4513" />
+        </mesh>
+        {/* Backrest */}
+        <mesh position={[0, 1, -0.5]}>
+          <boxGeometry args={[1.2, 1.2, 0.1]} />
+          <meshStandardMaterial color="#8B4513" />
+        </mesh>
+        {/* Chair legs */}
+        <mesh position={[-0.5, -0.3, -0.5]}>
+          <cylinderGeometry args={[0.03, 0.03, 1.4]} />
+          <meshStandardMaterial color="#654321" />
+        </mesh>
+        <mesh position={[0.5, -0.3, -0.5]}>
+          <cylinderGeometry args={[0.03, 0.03, 1.4]} />
+          <meshStandardMaterial color="#654321" />
+        </mesh>
+        <mesh position={[-0.5, -0.3, 0.5]}>
+          <cylinderGeometry args={[0.03, 0.03, 1.4]} />
+          <meshStandardMaterial color="#654321" />
+        </mesh>
+        <mesh position={[0.5, -0.3, 0.5]}>
+          <cylinderGeometry args={[0.03, 0.03, 1.4]} />
+          <meshStandardMaterial color="#654321" />
+        </mesh>
+      </group>
+    )
+  }
+
+  // Default fallback
   return (
     <group>
       <mesh>
         <boxGeometry args={[2, 1.5, 2]} />
         <meshStandardMaterial color="#8b5cf6" />
       </mesh>
-      <mesh position={[0, 1.2, 0]}>
-        <sphereGeometry args={[0.3]} />
-        <meshStandardMaterial color="#06b6d4" />
-      </mesh>
-      <mesh position={[0, -0.8, 0]}>
-        <cylinderGeometry args={[0.8, 0.8, 0.2]} />
-        <meshStandardMaterial color="#64748b" />
-      </mesh>
     </group>
   )
+}
+
+function ModelFallback({ productName }: { productName: string }) {
+  return <CustomProductGeometry productName={productName} />
 }
 
 const ThreeDScene = dynamic(
@@ -79,7 +169,7 @@ const ThreeDScene = dynamic(
             <directionalLight position={[10, 10, 5]} intensity={1} />
             <Environment preset="studio" />
             <Suspense fallback={<ModelFallback productName={product.name} />}>
-              <Model url={product.model_url} />
+              <Model productName={product.name} />
             </Suspense>
             <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} />
           </Canvas>
@@ -93,6 +183,15 @@ const ThreeDScene = dynamic(
     ),
   },
 )
+
+function ErrorBoundary({ children, fallback }: { children: React.ReactNode; fallback: React.ReactNode }) {
+  try {
+    return <>{children}</>
+  } catch (error) {
+    console.log("[v0] Error boundary caught GLB loading error:", error)
+    return <>{fallback}</>
+  }
+}
 
 export default function ProductViewer({ product, onBack }: ProductViewerProps) {
   return (
