@@ -54,7 +54,7 @@ function ModelFallback({ productName }: { productName: string }) {
 export default function ProductViewer({ product, onBack }: ProductViewerProps) {
   console.log(`[v0] Loading 3D viewer for: ${product.name}`)
 
-  const modelUrl = product.model_url.startsWith("/models/") ? "/assets/3d/duck.glb" : product.model_url
+  const modelUrl = product.model_url
 
   return (
     <div className="min-h-screen bg-background">
@@ -79,9 +79,6 @@ export default function ProductViewer({ product, onBack }: ProductViewerProps) {
               </div>
               <div className="mt-4 text-sm text-muted-foreground">
                 <p>• Drag to rotate • Scroll to zoom • Right-click + drag to pan</p>
-                {modelUrl === "/assets/3d/duck.glb" && (
-                  <p className="text-amber-600 mt-2">• Using demo model (duck) as placeholder</p>
-                )}
               </div>
             </div>
             <div className="md:w-80">

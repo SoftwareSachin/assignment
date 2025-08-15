@@ -23,7 +23,7 @@ const mockProducts: Product[] = [
     category: "Furniture",
     price: 299.99,
     description: "A beautiful modern oak coffee table with clean lines",
-    model_url: "/assets/3d/duck.glb",
+    model_url: "/models/coffee-table.glb",
     thumbnail_url: "/oak-coffee-table.png",
   },
   {
@@ -32,7 +32,7 @@ const mockProducts: Product[] = [
     category: "Building Material",
     price: 15.5,
     description: "High-quality ceramic floor tile, 300x300mm",
-    model_url: "/assets/3d/duck.glb",
+    model_url: "/models/ceramic-tile.glb",
     thumbnail_url: "/ceramic-floor-tile.png",
   },
   {
@@ -41,7 +41,7 @@ const mockProducts: Product[] = [
     category: "Lighting",
     price: 89.99,
     description: "Modern designer table lamp with adjustable brightness",
-    model_url: "/assets/3d/duck.glb",
+    model_url: "/models/table-lamp.glb",
     thumbnail_url: "/modern-designer-lamp.png",
   },
   {
@@ -50,7 +50,7 @@ const mockProducts: Product[] = [
     category: "Furniture",
     price: 129.99,
     description: "Comfortable wooden dining chair with ergonomic design",
-    model_url: "/assets/3d/duck.glb",
+    model_url: "/models/wooden-chair.glb",
     thumbnail_url: "/images/wooden-chair.png",
   },
 ]
@@ -153,3 +153,4 @@ export default function ProductGallery() {
     </div>
   )
 }
+</merged_code>
