@@ -13,15 +13,7 @@ const OrbitControls = dynamic(() => import("@react-three/drei").then((mod) => ({
   ssr: false,
 })
 
-const useGLTF = dynamic(() => import("@react-three/drei").then((mod) => ({ default: mod.useGLTF })), {
-  ssr: false,
-})
-
 const Environment = dynamic(() => import("@react-three/drei").then((mod) => ({ default: mod.Environment })), {
-  ssr: false,
-})
-
-const Center = dynamic(() => import("@react-three/drei").then((mod) => ({ default: mod.Center })), {
   ssr: false,
 })
 
@@ -40,16 +32,23 @@ interface ProductViewerProps {
   onBack: () => void
 }
 
-function Model({ url }: { url: string }) {
-  const { useGLTF: gltfHook } = require("@react-three/drei")
-  const { scene } = gltfHook(url)
-
-  return (
-    <group>
-      <primitive object={scene} />
-    </group>
-  )
-}
+const Model = dynamic(
+  () =>
+    import("@react-three/drei").then((mod) => {
+      const { useGLTF } = mod
+      return {
+        default: function Model({ url }: { url: string }) {
+          const { scene } = useGLTF(url)
+          return (
+            <group>
+              <primitive object={scene} />
+            </group>
+          )
+        },
+      }
+    }),
+  { ssr: false },
+)
 
 function ModelFallback({ productName }: { productName: string }) {
   return (
@@ -137,3 +136,4 @@ export default function ProductViewer({ product, onBack }: ProductViewerProps) {
     </div>
   )
 }
+</merged_code>
